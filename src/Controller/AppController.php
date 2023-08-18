@@ -55,6 +55,7 @@ class AppController extends AbstractController
      */
     public function renderTemplateWithVariable(){
         $users=['hasnaa','ahmed','ali'];
-            return $this->render('base.html.twig',['users' => $users]);
+//            return $this->render('base.html.twig',['users' => $users]);
+        return $this->render('home.html.twig',['users' => $users]);
     }
 }
