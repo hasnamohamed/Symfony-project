@@ -50,12 +50,44 @@ class AppController extends AbstractController
             return new Response('Not Required',200);
     }
     /**
-     * @Route("/renderTemplateWithVariable",name="renderTemplate")
+     * @Route("/home",name="home")
      * @return Response
      */
-    public function renderTemplateWithVariable(){
+    public function home(){
         $users=['hasnaa','ahmed','ali'];
 //            return $this->render('base.html.twig',['users' => $users]);
         return $this->render('home.html.twig',['users' => $users]);
     }
+
+    /**
+     * @Route("/login",name="login")
+     * @return Response
+     */
+    public function logIn(){
+        return $this->render('login.html.twig');
+    }
+
+    /**
+     * @Route("/signup",name="signup")
+     * @return Response
+     */
+    public function signUp(){
+        return $this->render('signup.html.twig');
+    }
+    /**
+     * @Route("/post/{name}",name="post")
+     * @return Response
+     */
+    public function post($name){
+        return $this->render('post.html.twig',['name'=>$name]);
+    }
+
+    /**
+     * @Route("/addlike",name="addlike",methods={"POST"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function addlike(){
+        return $this->json(['totalLikeCount'=>rand(18,992)]);
+    }
+
 }

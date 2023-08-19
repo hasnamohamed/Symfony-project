@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %} Sign Up Page! {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/signup.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/signup.js') }}"></script>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="frame">
+            <div class="nav">
+                <ul class="links">
+                    <li class="signin-active"><a class="btn">Existing User</a></li>
+                    <li class="signup-inactive"><a href="{{ path('signup') }}">New User</a></li>
+                </ul>
+            </div>
+            <div ng-app ng-init="checked = false">
+                <form class="form-signin" action="https://datatechzone.com/" method="post" name="form"> <label for="fullname">Full name</label><input class="form-styling" type="text" name="username" placeholder="" /> <label for="dlno">Driving License Number</label> <input class="form-styling" type="text" name="username" placeholder="" /> <label for="password">Password</label> <input class="form-styling" type="text" name="password" placeholder="" /> <input type="checkbox" id="checkbox" /> <label for="checkbox"><span class="ui"></span>Keep me signed in</label>
+                    <div class="btn-animate"> <a href="{{ path('post',{name:"Hasnaa"}) }}" class="btn-signin">Login to your account</a> </div>
+                </form>
+            </div>
+            <div class="forgot"> <a>Forgot your password?</a> </div>
+    </div>
+{% endblock %}
