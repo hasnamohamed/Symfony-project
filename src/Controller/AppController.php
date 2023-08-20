@@ -75,19 +75,37 @@ class AppController extends AbstractController
         return $this->render('signup.html.twig');
     }
     /**
-     * @Route("/post/{name}",name="post")
+     * @Route("/post",name="post")
      * @return Response
      */
-    public function post($name){
-        return $this->render('post.html.twig',['name'=>$name]);
+    public function post(){
+        $post= ['name'=>"Hasnaa",'likes'=>23,'comments'=>20,'share'=>133];
+        return $this->render('post.html.twig',['post'=>$post]);
     }
-
     /**
-     * @Route("/addlike",name="addlike",methods={"POST"})
+     * @Route("/addlike/{count}",name="addlike",methods={"POST"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function addlike(){
-        return $this->json(['totalLikeCount'=>rand(18,992)]);
-    }
+    //@Route("/addlike/{count}<|d+>",name="addlike",methods={"POST"}) add validation to wild cart route
+    public function addlike(int $count){//will cast from string to int
+       $this->addFlash('success','your like has been added');// add alert( flash message)
+        $this->addFlash('danger','Error');// add alert( flash message)
 
+        return $this->json(['totalLikeCount'=>$count + rand(18,992)]);
+    }
+    /**
+     * @Route("/posts",name="posts")
+     * @return Response
+     */
+    public function posts(){
+        $posts=[
+            ['name'=>"Hasnaa",'likes'=>23,'comments'=>20,'share'=>133],
+            ['name'=>"Ahmed",'likes'=>43,'comments'=>50,'share'=>13],
+            ['name'=>"Mohamed",'likes'=>53,'comments'=>250,'share'=>1],
+            ['name'=>"Ali",'likes'=>263,'comments'=>2,'share'=>10],
+            ['name'=>"Ramy",'likes'=>253,'comments'=>250,'share'=>1333],
+            ['name'=>"Rania",'likes'=>243,'comments'=>220,'share'=>15],
+        ];
+        return $this->render('posts.html.twig',['posts'=>$posts]);
+    }
 }
