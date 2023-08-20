@@ -15,8 +15,11 @@
     <section class="hero">
         <div class="container">
             <div class="row">
-                {{ postMacro.addPost(post.name,post.likes,post.comments,post.share) }}
+                {{ postMacro.addPost(post.name,post.likes,post.comments,post.share) }}<!--Have the acces for just data i sent!-->
+{#                {{ postMacro.addPost(_context) }}<!--context means that i sent all tha page so the macro have access for all data in the page!-->#}
                 <div class="col-lg-3">
+                    {{ include('other.html.twig',{'backgroundColor':'red'}) }} <!--it have the access for only the Data i have sent for it(post.name) as json object!-->
+
                     <div class="shadow-lg p-4 mb-2 bg-white author">
                         <!-- Flash message comes as array!-->
                         {% for message in app.flashes('success') %} <!-- filter by type !-->
@@ -30,5 +33,7 @@
             </div><!--/ row -->
         </div><!--/ container -->
     </section>
+{#        {% include 'other.html.twig' %} <!--it have the access for all Data in this file!-->#}
+
     <script src="{{ asset('js/addLike.js') }}"></script>
 {% endblock %}
