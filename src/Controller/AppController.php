@@ -10,37 +10,41 @@ use function Symfony\Component\String\u;
 
 class AppController extends AbstractController
 {
-    // #[Route('/', name: 'annotationRoute')] used in PHP 8
-    /**
-     * @Route("/",name="annotationRoute")
-     * @return Response
-     */
+    //    /**
+//     * @Route("/",name="annotationRoute")
+//     * @return Response
+//     */
+
+    #[Route('/', name: 'annotationRoute')]
     public function index(){
         return new Response('Welcome to our first page',200);
     }
-    // #[Route('/', name: 'annotationRoute')] used in PHP 8
-    /**
-     * @Route("/wildCardRouteWithPost",name="wildCardRouteWithPost")
-     * @return Response
-     */
+//    /**
+//     * @Route("/wildCardRouteWithPost",name="wildCardRouteWithPost")
+//     * @return Response
+//     */
+
+    #[Route('/wildCardRouteWithPost', name: 'wildCardRouteWithPost')]
     public function id(Request $request){
         return new Response(sprintf('Welcome %s',$request->get('name')),200);
     }
-    // #[Route('/', name: 'annotationRoute')] used in PHP 8
-    /**
-     * @Route("/wildCardRouteWithGet/{name}/{category}",name="wildCardRouteWithGet")
-     * @return Response
-     */
+//    /**
+//     * @Route("/wildCardRouteWithGet/{name}/{category}",name="wildCardRouteWithGet")
+//     * @return Response
+//     */
+
+    #[Route('/wildCardRouteWithPost/{name}/{category}', name: 'wildCardRouteWithGet',defaults: ['name' => 'hasnaa', 'category' => 'Hello world!'])]
     public function name($name){//Must be the same name in route
         $title=u(str_replace('_',' ',$name))->title(true);//make hasnaa_mohamed to Hasnaa Mohamed
 
         return new Response(sprintf('Welcome %s',$title),200);
     }
-    // #[Route('/', name: 'annotationRoute')] used in PHP 8
-    /**
-     * @Route("/renderTemplate/{name}",name="renderTemplate")
-     * @return Response
-     */
+//    /**
+//     * @Route("/renderTemplate/{name}",name="renderTemplate")
+//     * @return Response
+//     */
+
+    #[Route('/renderTemplate/{name}', name: 'renderTemplate',defaults: ['name' => 'Hasnaa'])]
     public function renderTemplate($name=null){
         if (empty($name)) {
             dump("hasnaa");//test profiller
@@ -49,54 +53,66 @@ class AppController extends AbstractController
         else
             return new Response('Not Required',200);
     }
-    /**
-     * @Route("/home",name="home")
-     * @return Response
-     */
+//    /**
+//     * @Route("/home",name="home")
+//     * @return Response
+//     */
+
+    #[Route('/home', name: 'home')]
     public function home(){
         $users=['hasnaa','ahmed','ali'];
 //            return $this->render('base.html.twig',['users' => $users]);
         return $this->render('home.html.twig',['users' => $users]);
     }
 
-    /**
-     * @Route("/login",name="login")
-     * @return Response
-     */
+//    /**
+//     * @Route("/login",name="login")
+//     * @return Response
+//     */
+
+    #[Route('/login', name: 'login')]
     public function logIn(){
         return $this->render('login.html.twig');
     }
 
-    /**
-     * @Route("/signup",name="signup")
-     * @return Response
-     */
+//    /**
+//     * @Route("/signup",name="signup")
+//     * @return Response
+//     */
+
+    #[Route('/signup', name: 'signup')]
     public function signUp(){
         return $this->render('signup.html.twig');
     }
-    /**
-     * @Route("/post",name="post")
-     * @return Response
-     */
+//    /**
+//     * @Route("/post",name="post")
+//     * @return Response
+//     */
+
+    #[Route('/post', name: 'post')]
     public function post(){
         $post= ['name'=>"Hasnaa",'likes'=>23,'comments'=>20,'share'=>133];
         return $this->render('post.html.twig',['post'=>$post]);
     }
-    /**
-     * @Route("/addlike/{count}",name="addlike",methods={"POST"})
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    //@Route("/addlike/{count}<|d+>",name="addlike",methods={"POST"}) add validation to wild cart route
+
+//    /**
+//     * @Route("/addlike/{count}",name="addlike",methods={"POST"})
+//     * @return \Symfony\Component\HttpFoundation\JsonResponse
+//     */
+//#[Route('/addlike/{count<\d+>}', name:"addlike",methods: "POST")] //add validation
+
+    #[Route('/addlike/{count}', name: "addlike", requirements: ['count' => '\d+'], defaults: ['count' => 12], methods: "POST")]
     public function addlike(int $count){//will cast from string to int
        $this->addFlash('success','your like has been added');// add alert( flash message)
         $this->addFlash('danger','Error');// add alert( flash message)
 
         return $this->json(['totalLikeCount'=>$count + rand(18,992)]);
     }
-    /**
-     * @Route("/posts",name="posts")
-     * @return Response
-     */
+//    /**
+//     * @Route("/posts",name="posts")
+//     * @return Response
+//     */
+    #[Route('/posts', name: 'posts')]
     public function posts(){
         $posts=[
             ['name'=>"Hasnaa",'likes'=>23,'comments'=>20,'share'=>133],
